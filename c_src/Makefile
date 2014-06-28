@@ -1,11 +1,20 @@
 PRIVDIR := ../priv
 
-all : $(PRIVDIR)/gpio_drv.so
+LIB = $(PRIVDIR)/gpio_drv.so
+
+OBJS = \
+     gpio_drv.o \
+     gpio_bcm2835.o
+
+all : $(LIB)
 
 override CFLAGS += -fpic -shared
 
-$(PRIVDIR)/gpio_drv.so : gpio_drv.o
+$(LIB): $(OBJS)
 	$(CC) -shared -fpic $(LDFLAGS) -o $@ $^
 
-lean:
-	$(RM) -f $(PRIVDIR)/gpio_drv.so gpio_drv.o
+%.o: %.c
+	$(CC) -c -o $@ $(CFLAGS) $<
+
+clean:
+	$(RM) -f $(LIB) $(OBJS)
