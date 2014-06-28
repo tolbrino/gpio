@@ -1,7 +1,7 @@
 {application, gpio,
  [
   {description, "GPIO Server."},
-  {vsn, "1"},
+  {vsn, "1.0.1"},
   {registered, []},
   {modules, [ 
               gpio_server,
